@@ -1,0 +1,5 @@
+services:
+    api:
+        command: [yarn, test]
+        tty: true
+        restart: 'no'
