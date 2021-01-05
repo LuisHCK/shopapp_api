@@ -1,6 +1,7 @@
 # Shop App API
 API for my generic shop app
-Stack:
+
+## Stack:
 - Docker
 - Express
 - MongoDB
