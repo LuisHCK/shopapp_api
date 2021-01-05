@@ -13,6 +13,6 @@ RUN yarn install
 # Bundle app source
 COPY . /opt/app
 
-EXPOSE 8000
+EXPOSE 8081
 
 CMD [ "yarn", "start" ]

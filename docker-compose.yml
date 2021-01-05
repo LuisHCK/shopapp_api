@@ -9,11 +9,12 @@ services:
         links:
             - mongodb
         ports:
-            - '8000:8000'
+            - '8081:8081'
         volumes:
             - ./:/opt/app
             - /opt/app/node_modules
     mongodb:
+        container_name: mongo
         restart: always
         image: mongo
         ports:
