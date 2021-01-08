@@ -1,3 +1,5 @@
+import { disconnectMongoDB } from "./common"
+
 global.console = {
     log: jest.fn(), // console.log are ignored in tests
 
@@ -7,3 +9,6 @@ global.console = {
     info: console.info,
     debug: console.debug,
 }
+
+
+afterAll(() => disconnectMongoDB())

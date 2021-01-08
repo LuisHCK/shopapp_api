@@ -1,8 +1,7 @@
-import mongoose from 'mongoose'
 import request from 'supertest'
 import app from '../../app'
-import { login } from '../../apps/auth/controllers'
 import { TestSchema } from '../../apps/user/schemas'
+import { disconnectMongoDB, removeAllCollections } from '../common'
 
 const defaultUser = {
     email: 'jhon@doe.com',
@@ -15,23 +14,13 @@ beforeAll((done) => {
     done()
 })
 
-afterAll(async () => {
-    // Closing the DB connection allows Jest to exit successfully.
-    try {
-        // Connection to Mongo killed.
-        await mongoose.disconnect()
-    } catch (error) {
-        console.log(`
-          You did something wrong dummy!
-          ${error}
-        `)
-        throw error
-    }
-})
+// afterAll(() => {
+//     disconnectMongoDB()
+// })
 
 afterEach(async () => {
     // Clean database after each test
-    await removeAllCollections()
+    removeAllCollections()
 })
 
 /**
@@ -116,18 +105,11 @@ describe('Test user login', () => {
 })
 
 // Helpers
-async function removeAllCollections() {
-    const collections = Object.keys(mongoose.connection.collections)
-    for (const collectionName of collections) {
-        const collection = mongoose.connection.collections[collectionName]
-        await collection.deleteMany()
-    }
-}
 
 /**
  * Create a new user
  * @param {Object} data User data
- * @returns request.Test
+ * @returns {request.Test}
  */
 const createUser = (data) => {
     return request(app)
@@ -138,7 +120,7 @@ const createUser = (data) => {
 /**
  * Login user with credentials
  * @param {Object} data user credentials
- * @returns request.Test
+ * @returns {request.Test}
  */
 const loginUser = (data) => {
     const credentials = data || {

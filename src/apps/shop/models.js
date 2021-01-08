@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const StoreSchema = mongoose.model('Store', {
+const ShopSchema = mongoose.model('Shop', {
     name: String,
     description: String,
 })
